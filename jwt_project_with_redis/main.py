@@ -13,13 +13,13 @@ from typing import Optional
 import uvicorn
 import redis
 
-# FastAPI 应用
+# FastAPI Applications
 app = FastAPI()
 
 class Base(DeclarativeBase):
     pass
 
-# 设置和依赖
+# Settings and dependencies
 SECRET_KEY = "jowewclaksidfoiawerlkasdf"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
@@ -27,12 +27,12 @@ REFRESH_TOKEN_EXPIRE_DAYS = 7
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-# 创建数据库引擎
+# Creating a Database Engine
 DATABASE_URL = "mysql://root:ygnmygh@localhost/jwt_db"
 engine = create_engine(DATABASE_URL, echo=True)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# 创建 Redis 客户端
+# Creating a Redis Client
 redis_client = redis.Redis(host='localhost', port=6379, db=0)
 
 class User(Base):
@@ -54,7 +54,7 @@ class LoginHistory(Base):
 User.login_history = relationship("LoginHistory", order_by=LoginHistory.id, back_populates="user")
 
 
-# JWT 令牌模型
+# JWT Token Model
 class Token(BaseModel):
     access_token: str
     token_type: str
@@ -82,7 +82,7 @@ def get_current_user(db: Session = Depends(get_db), token: str = Security(oauth2
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
-        # 检查令牌是否在 Redis 黑名单中
+        # Check if the token is in the Redis blacklist
         if redis_client.get(token):
             raise credentials_exception
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
@@ -133,11 +133,11 @@ async def refresh(token: str = Depends(oauth2_scheme), db: Session = Depends(get
 @app.post("/logout")
 async def logout(token: str = Depends(oauth2_scheme), db: SessionLocal = Depends(get_db)):
     try:
-        # 将令牌添加到 Redis 黑名单
+        # Adding tokens to the Redis blacklist
         redis_client.setex(token, ACCESS_TOKEN_EXPIRE_MINUTES * 60, "logged_out")
         return {"msg": "Logged out"}
     except redis.exceptions.RedisError as e:
-        # 如果 Redis 操作失败，返回错误信息
+        # Returns an error message if the Redis operation fails
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.put("/user/update", response_model=Token)
