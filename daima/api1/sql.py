@@ -11,7 +11,7 @@ from pydantic1 import Student,Group
 
 
 
-# 关联表
+# correlation table
 student_group_association = Table(
     "student_group_association",
     Base.metadata,
@@ -19,7 +19,7 @@ student_group_association = Table(
     Column("group_id", Integer, ForeignKey("groups.id")),
 )
 
-# 数据模型
+# data model
 class StudentModel(Base):
     __tablename__ = "students"
 
@@ -35,7 +35,7 @@ class GroupModel(Base):
     name = Column(String)
     students = relationship("StudentModel", secondary=student_group_association, back_populates="groups")
 
-# 数据传输对象 (DTO)
+# Data Transfer Objects (DTO)
 class Student:
     def __init__(self, name: str, email: str):
         self.name = name
@@ -45,7 +45,7 @@ class Group:
     def __init__(self, name: str):
         self.name = name
 
-# 学生仓库
+# Student Warehouse
 class StudentRepository:
     def __init__(self, db_session: Session):
         self.db_session = db_session
@@ -78,7 +78,7 @@ class StudentRepository:
             return True
         return False
 
-# 组仓库
+# cluster warehouse
 class GroupRepository:
     def __init__(self, db_session: Session):
         self.db_session = db_session
