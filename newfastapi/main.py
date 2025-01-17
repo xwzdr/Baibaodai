@@ -182,7 +182,7 @@ async def remove_student_from_group(student_id: int = Path(...), group_id: int =
 @app.get(path='/groups/{group_id}/students', response_model=List[StudentBase])
 async def get_students_in_group(group_id: int = Path(...), db_session: Session = Depends(get_db_session)):
     exist_group = check_group_exist(group_id, db_session)
-    # 明确指定连接查询的表和条件
+    # Explicitly specify tables and conditions for join queries
     query = select(StudentEntity).select_from(StudentGroupEntity).join(StudentEntity, StudentEntity.id == StudentGroupEntity.student_id).where(StudentGroupEntity.group_id == group_id)
     return db_session.execute(query).scalars().all()
 @app.put(path='/students/{student_id}/groups/{group_id_from}/{group_id_to}', response_model=StudentBase)
