@@ -40,7 +40,7 @@ student1.show_info()
 student2.show_info()
 postgrad1.show_info()
 
-# 计算助学金
+# Calculation of grants
 print(f"Студент {student1.group_number} получает стипендию {student1.calculate_stipend()}р.")
 print(f"Студент {student2.group_number} получает стипендию {student2.calculate_stipend()}р.")
 print(f"Аспирант {postgrad1.group_number} получает стипендию {postgrad1.calculate_stipend()}р.")
