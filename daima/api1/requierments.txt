@@ -1,0 +1,17 @@
+# requirements.txt
+
+fastapi==0.95.1
+uvicorn==0.20.0
+python-dotenv==0.20.0
+sqlalchemy==1.4.38
+psycopg2==2.9.3
+pydantic==1.10.0
+loguru==0.5.3
+pytest==7.3.0
+anyio==3.6.2
+cryptography==42.0.2
+requests==2.31.0
+ruamel.yaml==0.17.21
+ruamel.yaml.clib==0.2.6
+setuptools==68.2.2
+sqlite==3.41.2

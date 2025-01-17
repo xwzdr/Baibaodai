@@ -1,0 +1,7 @@
+fastapi[all]
+python-multipart==0.0.6
+PyJWT==2.8.0
+SQLAlchemy==1.4.31
+uvicorn==0.17.6
+mysql client==2.1.1
+SQLALchemy
