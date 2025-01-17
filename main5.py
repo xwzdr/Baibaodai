@@ -1,16 +1,16 @@
 import time
 
-# 装饰器，用于测量函数执行时间
+# Decorator to measure function execution time
 def time_decorator(func):
     def wrapper(*args, **kwargs):
-        start_time = time.time()  # 开始时间
-        result = func(*args, **kwargs)  # 执行函数
-        end_time = time.time()  # 结束时间
-        print(f"{func.__name__} execution time: {end_time - start_time} seconds")  # 打印执行时间
+        start_time = time.time()  # Starting time
+        result = func(*args, **kwargs)  # executable function
+        end_time = time.time()  # end time
+        print(f"{func.__name__} execution time: {end_time - start_time} seconds")  # Print execution time
         return result
     return wrapper
 
-# 应用装饰器到函数
+# Applying Decorators to Functions
 @time_decorator
 def add(a, b):
     return a + b
@@ -21,10 +21,10 @@ def read_and_write(a, b):
         file_values = file.read().split()
         a = int(file_values[0])
         b = int(file_values[1])
-    return add(a, b)  # 返回 add函数的结果
+    return add(a, b)  # Returns the result of the add function
 
-# 测试函数
+# test function
 if __name__ == "__main__":
-    # 从文件读取两个数，计算和，并将结果写入文件
-    result = read_and_write(10, 20)  # 存储read_and_write函数的返回值
-    print(f"Sum: {result}")  # 打印结果
+    # Reads two numbers from a file, calculates the sum, and writes the result to the file
+    result = read_and_write(10, 20)  # Storing the return value of the read_and_write function
+    print(f"Sum: {result}")  # Print results
