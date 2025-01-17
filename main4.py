@@ -29,13 +29,13 @@ class Postgraduate:
             return 6000
 
 
-# 示例使用
+# Sample Use
 student1 = Student("group1", 5.5)
 student2 = Student("group2", 4.8)
 
 postgrad1 = Postgraduate("group1", 5.0, "Thesis Title")
 
-# 显示信息
+# Display Information
 student1.show_info()
 student2.show_info()
 postgrad1.show_info()
