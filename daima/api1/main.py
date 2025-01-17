@@ -46,7 +46,7 @@ def list_students(db: Session = Depends(get_db)):
     student_service = StudentService(StudentRepository(db))
     return student_service.list_students()
 
-# 班级相关路由
+# Class Related Routing
 @app.post("/groups", response_model=Group)
 def create_group(group: Group, db: Session = Depends(get_db)):
     group_service = GroupService(GroupRepository(db))
